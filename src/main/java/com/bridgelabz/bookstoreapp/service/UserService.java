@@ -1,13 +1,14 @@
 package com.bridgelabz.bookstoreapp.service;
 
+import com.bridgelabz.bookstoreapp.dto.ResponseDTO;
 import com.bridgelabz.bookstoreapp.dto.UserDTO;
+import com.bridgelabz.bookstoreapp.dto.UserLoginDTO;
 import com.bridgelabz.bookstoreapp.exception.BookStoreCustomException;
 import com.bridgelabz.bookstoreapp.model.UserRegistration;
 import com.bridgelabz.bookstoreapp.repository.UserRegistrationRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -20,7 +21,7 @@ public class UserService implements IUserService {
     public UserRegistration createUser(UserDTO userDTO) {
         UserRegistration userRegistrationData = null;
         userRegistrationData = new UserRegistration(userDTO);
-        log.debug("AddressbookData: " + userRegistrationData.toString());
+        log.debug("BooktStoreData: " + userRegistrationData.toString());
         return userRepository.save(userRegistrationData);
     }
 
@@ -37,10 +38,14 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public ResponseDTO loginUser(UserLoginDTO userLoginDTO) {
+        return null;
+    }
+
+    @Override
     public List<UserRegistration> getByEmailId(String email_id) {
         return userRepository.findUserByEmailId(email_id);
     }
-
 
     @Override
     public UserRegistration updateUserBookStoreData(int id, UserDTO userDTO) {
