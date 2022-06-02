@@ -74,4 +74,11 @@ public class BookController {
         ResponseDTO responseDTO = new ResponseDTO("Sorting decending call is successful! ", books);
         return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.OK);
     }
+    @GetMapping("/getauthor/{authorName}")
+    public ResponseEntity<ResponseDTO> getBookByAuthorName(@PathVariable("authorName") String authorName) {
+        List<Book> books = null;
+        books = bookService.getBookByAuthorName(authorName);
+        ResponseDTO responseDTO = new ResponseDTO("Get book search by Author Name is successful!", books);
+        return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.OK);
+    }
 }

@@ -16,4 +16,5 @@ public interface IBookService {
     Book updateBookById(int bookId, BookDTO bookDTO);
     public List<Book> sortingBookInAsce();
     public List<Book> sortingBookInDesc();
+    public List<Book> getBookByAuthorName(String authorName);
 }

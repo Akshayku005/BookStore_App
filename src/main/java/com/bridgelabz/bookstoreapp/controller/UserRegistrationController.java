@@ -45,12 +45,12 @@ public class UserRegistrationController {
         return new ResponseEntity(dto, HttpStatus.OK);
     }
 
-    @GetMapping("/getByEmailId/{emailId}")
-    public ResponseEntity<ResponseDTO> getUserByEmailId(@PathVariable("emailId") String emailId) {
-        return new ResponseEntity<ResponseDTO>(new
-                ResponseDTO("Get User Data by Email",
-                userRegistrationService.getUserByEmailId(emailId)), HttpStatus.OK);
-    }
+//    @GetMapping("/getByEmailId/{emailId}")
+//    public ResponseEntity<ResponseDTO> getUserByEmailId(@PathVariable("emailId") String emailId) {
+//        return new ResponseEntity<ResponseDTO>(new
+//                ResponseDTO("Get User Data by Email",
+//                userRegistrationService.getUserByEmailId(emailId)), HttpStatus.OK);
+//    }
 
     @PostMapping("/forgotPassword")
     public ResponseEntity<String> forgotPassword(@RequestParam String email, @RequestParam String password) {
