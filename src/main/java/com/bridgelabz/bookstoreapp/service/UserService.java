@@ -35,7 +35,7 @@ public class UserService implements IUserService {
         String token = util.createToken(newUser.getUserId());
         mailService.sendEmail(newUser.getEmail(), "Test Email", "Registered SuccessFully, hii: "
                 +newUser.getFirstName()+"Please Click here to get data-> "
-                +"http://localhost:8098/user/getBy/"+token);
+                +"http://localhost:8083/user/getBy/"+token);
         return token;
     }
 
@@ -49,9 +49,9 @@ public class UserService implements IUserService {
         int id=util.decodeToken(token);
         Optional<UserRegistration> getUser= userRepository.findById(id);
         if(getUser.isPresent()){
-            mailService.sendEmail("priya.sports123@gmail.com", "Test Email", "Get your data with this token, hii: "
+            mailService.sendEmail("akshaysportive@gmail.com", "Test Email", "Get your data with this token, hii: "
                     +getUser.get().getEmail()+"Please Click here to get data-> "
-                    +"http://localhost:8098/user/getBy/"+token);
+                    +"http://localhost:8083/user/getBy/"+token);
             return getUser;
 
         }
@@ -110,7 +110,7 @@ public class UserService implements IUserService {
             UserRegistration newBook = new UserRegistration(updateUser.get().getUserId(),userDTO);
             userRepository.save(newBook);
             String token = util.createToken(newBook.getUserId());
-            mailService.sendEmail(newBook.getEmail(),"Welcome "+newBook.getFirstName(),"Click here \n http://localhost:8098/user/getBy/"+token);
+            mailService.sendEmail(newBook.getEmail(),"Welcome "+newBook.getFirstName(),"Click here \n http://localhost:8083/user/getBy/"+token);
             return newBook;
 
         }
@@ -122,9 +122,9 @@ public class UserService implements IUserService {
         Optional<UserRegistration> isContactPresent=userRepository.findById(id);
         if(isContactPresent.isPresent()) {
             List<UserRegistration> listOfUsers=userRepository.findAll();
-            mailService.sendEmail("priya.sports123@gmail.com", "Test Email", "Get your data with this token, hii: "
+            mailService.sendEmail("akshaysportive@gmail.com", "Test Email", "Get your data with this token, hii: "
                     +isContactPresent.get().getEmail()+"Please Click here to get data-> "
-                    +"http://localhost:8098/user/getAll/"+token);
+                    +"http://localhost:8083/user/getAll/"+token);
             return listOfUsers;
         }else {
             System.out.println("Exception ...Token not found!");
@@ -133,12 +133,11 @@ public class UserService implements IUserService {
 
     @Override
     public UserRegistration updateRecordById(Integer id, UserDTO userDTO) {
-//        Integer id= util.decodeToken(token);
+
         Optional<UserRegistration> addressBook = userRepository.findById(id);
         if(addressBook.isPresent()) {
             UserRegistration newBook = new UserRegistration(id,userDTO);
             userRepository.save(newBook);
-
             return newBook;
 
         }
