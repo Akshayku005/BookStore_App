@@ -47,33 +47,38 @@ public class BookController {
         ResponseDTO responseDTO = new ResponseDTO("deleted successfully", bookId);
         return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.OK);
     }
+
     @GetMapping("/getbook/{bookName}")
     public ResponseEntity<ResponseDTO> getBookByBookName(@PathVariable("bookName") String bookName) {
         List<Book> books = null;
-      books = bookService.getBookByName(bookName);
+        books = bookService.getBookByName(bookName);
         ResponseDTO responseDTO = new ResponseDTO("Get book search by BookName is successful!", books);
         return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.OK);
     }
+
     @PutMapping("/update/{bookId}")
     public ResponseEntity<ResponseDTO> updateBookByID(@PathVariable int bookId, @Valid @RequestBody BookDTO bookDTO) {
         Book updatedBooks = bookService.updateBookById(bookId, bookDTO);
         ResponseDTO responseDTO = new ResponseDTO("Books are Updated by ID successfully", updatedBooks);
         return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.OK);
     }
+
     @GetMapping("/sortingAsce")
     public ResponseEntity<ResponseDTO> sortingByAsce() {
-        List<Book> books = null ;
-        books =bookService.sortingBookInAsce();
+        List<Book> books = null;
+        books = bookService.sortingBookInAsce();
         ResponseDTO responseDTO = new ResponseDTO("Sorting Ascending call is successful! ", books);
         return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.OK);
     }
+
     @GetMapping("/sortingDesc")
     public ResponseEntity<ResponseDTO> sortingByDesce() {
-        List<Book> books = null ;
-        books =bookService.sortingBookInDesc();
+        List<Book> books = null;
+        books = bookService.sortingBookInDesc();
         ResponseDTO responseDTO = new ResponseDTO("Sorting decending call is successful! ", books);
         return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.OK);
     }
+
     @GetMapping("/getauthor/{authorName}")
     public ResponseEntity<ResponseDTO> getBookByAuthorName(@PathVariable("authorName") String authorName) {
         List<Book> books = null;

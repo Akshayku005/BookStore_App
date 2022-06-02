@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
 import java.util.List;
 
@@ -44,13 +45,6 @@ public class UserRegistrationController {
         ResponseDTO dto = new ResponseDTO("Data retrieved successfully (:", listOfUser);
         return new ResponseEntity(dto, HttpStatus.OK);
     }
-
-//    @GetMapping("/getByEmailId/{emailId}")
-//    public ResponseEntity<ResponseDTO> getUserByEmailId(@PathVariable("emailId") String emailId) {
-//        return new ResponseEntity<ResponseDTO>(new
-//                ResponseDTO("Get User Data by Email",
-//                userRegistrationService.getUserByEmailId(emailId)), HttpStatus.OK);
-//    }
 
     @PostMapping("/forgotPassword")
     public ResponseEntity<String> forgotPassword(@RequestParam String email, @RequestParam String password) {

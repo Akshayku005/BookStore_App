@@ -40,6 +40,5 @@ public @Data class Book {
         this.bookImg = bookDTO.getBookImg();
         this.price = bookDTO.getPrice();
         this.quantity = bookDTO.getQuantity();
-
     }
 }
