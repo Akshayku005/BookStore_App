@@ -6,6 +6,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 public @Data class UserLoginDTO {
+
     @Email
     private String email;
     @NotEmpty(message = "Password cant be null")
@@ -14,4 +15,5 @@ public @Data class UserLoginDTO {
         this.email=email;
         this.password=password;
     }
+
 }

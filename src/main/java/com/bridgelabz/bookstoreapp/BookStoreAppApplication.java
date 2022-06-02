@@ -10,12 +10,7 @@ import org.springframework.context.ApplicationContext;
 @Slf4j
 public class BookStoreAppApplication {
     public static void main(String[] args) {
-        ApplicationContext context=  SpringApplication.run(BookStoreAppApplication.class, args);
-        log.info("BookStore app Started in {} Environment",
-                context.getEnvironment().getProperty("environment"));
-        log.info("BookStore DB User is {} ",
-                context.getEnvironment().getProperty("spring.datasource.username"));
+        SpringApplication.run(BookStoreAppApplication.class, args);
         System.out.println("Welcome to  Book Store !!");
     }
-
 }
