@@ -5,6 +5,7 @@ import com.bridgelabz.bookstoreapp.dto.ResponseDTO;
 import com.bridgelabz.bookstoreapp.model.Book;
 import com.bridgelabz.bookstoreapp.model.Cart;
 import com.bridgelabz.bookstoreapp.service.ICartService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,10 +16,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/cart")
 public class CartController {
+    @Autowired
     private ICartService iCartService;
 
     @PostMapping("/insert")
     public ResponseEntity<ResponseDTO> insertItem(@Valid @RequestBody CartDTO cartdto) {
+        System.out.println(cartdto);
         Cart newCart = iCartService.insertItems(cartdto);
         ResponseDTO responseDTO = new ResponseDTO("User registered successfully !", newCart);
         return new ResponseEntity(responseDTO, HttpStatus.CREATED);

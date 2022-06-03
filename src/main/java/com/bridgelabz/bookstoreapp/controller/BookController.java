@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.util.List;
 
@@ -52,7 +51,7 @@ public class BookController {
     public ResponseEntity<ResponseDTO> getBookByBookName(@PathVariable("bookName") String bookName) {
         List<Book> books = null;
         books = bookService.getBookByName(bookName);
-        ResponseDTO responseDTO = new ResponseDTO("Get book search by BookName is successful!", books);
+        ResponseDTO responseDTO = new ResponseDTO("Get book by searching BookName is successful!", books);
         return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.OK);
     }
 

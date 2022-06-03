@@ -17,5 +17,4 @@ public interface ICartService {
 
     Cart updateRecordById(Integer cartId, CartDTO cartDTO);
 
-
 }

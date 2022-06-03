@@ -21,9 +21,9 @@ public @Data class Book {
 
     private String bookImg;
 
-    private String price;
+    private Integer price;
 
-    private String quantity;
+    private Integer quantity;
 
     public Book() {
 

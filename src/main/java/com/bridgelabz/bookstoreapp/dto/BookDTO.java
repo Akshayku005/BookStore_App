@@ -15,11 +15,11 @@ public @Data class BookDTO {
 
     public String bookImg;
 
-    public String price;
+    public Integer price;
 
-    public String quantity;
+    public Integer quantity;
 
-    public BookDTO(String bookName, String authorName, String bookDescription, String bookImg, String price, String quantity) {
+    public BookDTO(String bookName, String authorName, String bookDescription, String bookImg, Integer price, Integer quantity) {
         this.bookName = bookName;
         this.authorName = authorName;
         this.bookDescription = bookDescription;

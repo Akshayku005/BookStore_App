@@ -28,12 +28,13 @@ public class CartService implements ICartService {
 
     @Override
     public Cart insertItems(CartDTO cartdto) {
+        System.out.println(cartdto);
         Optional<Book> book = bookRepository.findById(cartdto.getBookId());
         Optional<UserRegistration> userRegistration = userRepository.findById(cartdto.getUserId());
         if (book.isPresent() && userRegistration.isPresent()) {
             Cart newCart = new Cart(cartdto.getQuantity(), book.get(), userRegistration.get());
-            cartRepository.save(newCart);
-            return newCart;
+            System.out.println(newCart);
+          return cartRepository.save(newCart);
         } else {
             throw new BookStoreException("Book or User does not exists");
         }
@@ -84,7 +85,7 @@ public class CartService implements ICartService {
         Optional<UserRegistration> user = userRepository.findById(cartDTO.getUserId());
         if (cart.isPresent()) {
             if (book.isPresent() && user.isPresent()) {
-                Cart newCart = new Cart(cartId, cartDTO.getQuantity(), book.get(), user.get());
+                Cart newCart = new Cart(cartDTO.getQuantity(), book.get(), user.get());
                 cartRepository.save(newCart);
                 log.info("Cart record updated successfully for id " + cartId);
                 return newCart;

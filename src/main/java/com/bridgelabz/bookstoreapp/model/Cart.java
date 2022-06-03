@@ -19,14 +19,6 @@ public @Data class Cart {
     private Book book;
     private Integer quantity;
 
-    public Cart(Integer cartId, Integer quantity, Book book, UserRegistration user) {
-        super();
-        this.cartId = cartId;
-        this.quantity = quantity;
-        this.book = book;
-        this.user = user;
-    }
-
     public Cart(Integer quantity, Book book, UserRegistration user) {
         super();
         this.quantity = quantity;
@@ -35,7 +27,6 @@ public @Data class Cart {
     }
 
     public Cart() {
-        super();
     }
 
 }
