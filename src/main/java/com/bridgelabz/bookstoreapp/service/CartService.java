@@ -28,7 +28,6 @@ public class CartService implements ICartService {
 
     @Override
     public Cart insertItems(CartDTO cartdto) {
-        System.out.println(cartdto);
         Optional<Book> book = bookRepository.findById(cartdto.getBookId());
         Optional<UserRegistration> userRegistration = userRepository.findById(cartdto.getUserId());
         if (book.isPresent() && userRegistration.isPresent()) {
