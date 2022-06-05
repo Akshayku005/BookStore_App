@@ -10,7 +10,6 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.Verification;
 import org.springframework.stereotype.Component;
 
-
 @Component
 public class TokenUtility {
     private static final String TOKEN_SECRET = "Akshay";

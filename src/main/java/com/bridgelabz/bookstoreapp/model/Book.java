@@ -33,6 +33,17 @@ public @Data class Book {
         this.updateBook(bookDTO);
     }
 
+    public Book(int id, BookDTO bookDTO) {
+        this.bookId=id;
+        this.bookName = bookDTO.getBookName();
+        this.authorName = bookDTO.getAuthorName();
+        this.bookDescription = bookDTO.getBookDescription();
+        this.bookImg = bookDTO.getBookImg();
+        this.price = bookDTO.getPrice();
+        this.quantity = bookDTO.getQuantity();
+    }
+
+
     public void updateBook(BookDTO bookDTO) {
         this.bookName = bookDTO.getBookName();
         this.authorName = bookDTO.getAuthorName();

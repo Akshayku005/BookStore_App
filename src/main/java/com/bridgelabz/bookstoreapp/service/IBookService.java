@@ -8,13 +8,20 @@ import com.bridgelabz.bookstoreapp.model.Book;
 import java.util.List;
 
 public interface IBookService {
-    Book insertBook (BookDTO bookDTO);
-    List<Book> getAllBooks();
-    Book getBookById(int bookId);
-    void deleteBookById(int bookId);
-    public List<Book> getBookByName(String bookName);
-    Book updateBookById(int bookId, BookDTO bookDTO);
-    public List<Book> sortingBookInAsce();
-    public List<Book> sortingBookInDesc();
-    public List<Book> getBookByAuthorName(String authorName);
+    String createBook(BookDTO bookDTO);
+    List<Book> getAllBookData(String token);
+    Book getBookDataById(String token);
+    List<Book> getBookByName(String bookName);
+    List<Book> sortedListOfBooksInAscendingOrder();
+    List<Book> sortedListOfBooksInDescendingOrder();
+    String deleteRecordById(String token);
+    Book updateRecordById(String token,BookDTO bookDTO);
+    List<Book> getBookByAuthorName(String authorName);
+
+    Book updataBooksByQuantity(String token, int quantity);
+
+
+
+
+
 }

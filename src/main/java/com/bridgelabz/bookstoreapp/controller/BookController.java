@@ -19,70 +19,72 @@ public class BookController {
     @Autowired
     IBookService bookService;
 //Ability to insert BookDetails in DB
-    @PostMapping("/insert")
-    public ResponseEntity<ResponseDTO> insert(@Valid @RequestBody BookDTO bookDTO) {
-        Book book = bookService.insertBook(bookDTO);
-        ResponseDTO responseDTO = new ResponseDTO("created Book data successfully", book);
-        return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.OK);
+@PostMapping("/insert")
+public ResponseEntity<String> addBookToRepository(@Valid @RequestBody BookDTO bookDTO) {
+    String newBook = bookService.createBook(bookDTO);
+    ResponseDTO responseDTO = new ResponseDTO("New Book Added in Book Store", newBook);
+    return new ResponseEntity(responseDTO, HttpStatus.CREATED);
+}
+
+    @GetMapping(value = "/getAll/{token}")
+    public ResponseEntity<String> getAllBookData(@PathVariable String token) {
+        List<Book> listOfBooks = bookService.getAllBookData(token);
+        ResponseDTO dto = new ResponseDTO("Data retrieved successfully (:", listOfBooks);
+        return new ResponseEntity(dto, HttpStatus.OK);
     }
-//    Ability to get all book data by getAllBook() method
-    @GetMapping("/get")
-    public ResponseEntity<ResponseDTO> getAllBooks() {
-        List<Book> books = bookService.getAllBooks();
-        ResponseDTO responseDTO = new ResponseDTO("Get all books call Success", books);
-        return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.OK);
+
+    @GetMapping(value = "/getById/{token}")
+    public ResponseEntity<String> getBookDataById(@PathVariable String token) {
+        Book Book = bookService.getBookDataById(token);
+        ResponseDTO dto = new ResponseDTO("Data retrieved successfully by id (:", Book);
+        return new ResponseEntity(dto, HttpStatus.OK);
     }
-//    Ability to get book data by id
-    @GetMapping("/get/{bookId}")
-    public ResponseEntity<ResponseDTO> getBookById(@PathVariable("bookId") int bookId) {
-        Book book = bookService.getBookById(bookId);
-        ResponseDTO responseDTO = new ResponseDTO("GetBookById call Success", book);
-        return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.OK);
+
+    @DeleteMapping("/delete/{token}")
+    public ResponseEntity<String> deleteRecordById(@PathVariable String token) {
+        ResponseDTO dto = new ResponseDTO("Book Record deleted successfully", bookService.deleteRecordById(token));
+        return new ResponseEntity(dto, HttpStatus.OK);
     }
-//    Ability to delete book data by id
-    @DeleteMapping("/delete/{bookId}")
-    public ResponseEntity<ResponseDTO> deleteBookById(@PathVariable("bookId") int bookId) {
-        bookService.deleteBookById(bookId);
-        ResponseDTO responseDTO = new ResponseDTO("deleted successfully", bookId);
-        return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.OK);
+
+    @PutMapping("/updateBookById/{token}")
+    public ResponseEntity<String> updateRecordById(@PathVariable String token, @Valid @RequestBody BookDTO bookDTO) {
+        Book updateRecord = bookService.updateRecordById(token,bookDTO);
+        ResponseDTO dto = new ResponseDTO(" Book Record updated successfully by Id", updateRecord);
+        return new ResponseEntity(dto, HttpStatus.ACCEPTED);
     }
-//    Ability to get book data by BookName
-    @GetMapping("/getbook/{bookName}")
-    public ResponseEntity<ResponseDTO> getBookByBookName(@PathVariable("bookName") String bookName) {
-        List<Book> books = null;
-        books = bookService.getBookByName(bookName);
-        ResponseDTO responseDTO = new ResponseDTO("Get book by searching BookName is successful!", books);
-        return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.OK);
+    @PutMapping("/update/{token}/{quantity}")
+    public ResponseEntity<ResponseDTO> updateBooksByQuantity(@PathVariable String token,@PathVariable int quantity){
+        Book bookData=bookService.updataBooksByQuantity(token,quantity);
+        ResponseDTO responseDTO=new ResponseDTO("updated book data succesfully",bookData);
+        return  new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.OK);
     }
-//    Ability to update book data by id
-    @PutMapping("/update/{bookId}")
-    public ResponseEntity<ResponseDTO> updateBookByID(@PathVariable int bookId, @Valid @RequestBody BookDTO bookDTO) {
-        Book updatedBooks = bookService.updateBookById(bookId, bookDTO);
-        ResponseDTO responseDTO = new ResponseDTO("Books are Updated by ID successfully", updatedBooks);
-        return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.OK);
+
+
+    @GetMapping("searchByBookName/{name}")
+    public ResponseEntity<ResponseDTO> getBookByName(@PathVariable("name") String name) {
+        List<Book> listOfBooks = bookService.getBookByName(name);
+        ResponseDTO dto = new ResponseDTO("Data retrieved successfully (:", listOfBooks);
+        return new ResponseEntity(dto, HttpStatus.OK);
     }
-//    Ability to sort book data in Ascending order
-    @GetMapping("/sortingAsce")
-    public ResponseEntity<ResponseDTO> sortingByAsce() {
-        List<Book> books = null;
-        books = bookService.sortingBookInAsce();
-        ResponseDTO responseDTO = new ResponseDTO("Sorting Ascending call is successful! ", books);
-        return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.OK);
+
+    @GetMapping("/sortAsc")
+    public ResponseEntity<ResponseDTO> getBooksInAscendingOrder() {
+        List<Book> listOfBooks = bookService.sortedListOfBooksInAscendingOrder();
+        ResponseDTO dto = new ResponseDTO("Data retrieved successfully (:", listOfBooks);
+        return new ResponseEntity(dto, HttpStatus.OK);
     }
-//    Ability to sort book data in decending order
-    @GetMapping("/sortingDesc")
-    public ResponseEntity<ResponseDTO> sortingByDesce() {
-        List<Book> books = null;
-        books = bookService.sortingBookInDesc();
-        ResponseDTO responseDTO = new ResponseDTO("Sorting decending call is successful! ", books);
-        return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.OK);
+
+    @GetMapping("/sortDesc")
+    public ResponseEntity<ResponseDTO> getBooksInDescendingOrder() {
+        List<Book> listOfBooks = bookService.sortedListOfBooksInDescendingOrder();
+        ResponseDTO dto = new ResponseDTO("Data retrieved successfully (:", listOfBooks);
+        return new ResponseEntity(dto, HttpStatus.OK);
     }
-//    Ability to get book data AutherName
-    @GetMapping("/getauthor/{authorName}")
+
+    @GetMapping("searchByAuthorName/{authorName}")
     public ResponseEntity<ResponseDTO> getBookByAuthorName(@PathVariable("authorName") String authorName) {
-        List<Book> books = null;
-        books = bookService.getBookByAuthorName(authorName);
-        ResponseDTO responseDTO = new ResponseDTO("Get book search by Author Name is successful!", books);
-        return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.OK);
+        List<Book> listOfBooks = bookService.getBookByAuthorName(authorName);
+        ResponseDTO dto = new ResponseDTO("Data retrieved successfully (:", listOfBooks);
+        return new ResponseEntity(dto, HttpStatus.OK);
     }
 }

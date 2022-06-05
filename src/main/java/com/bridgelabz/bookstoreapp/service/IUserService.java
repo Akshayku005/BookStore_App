@@ -10,17 +10,12 @@ import java.util.List;
 
 public interface IUserService {
     String addUser(UserDTO userDTO);
-
+    String verifyUser(String token);
     List<UserRegistration> getAllUsers();
 
     ResponseDTO loginUser(UserLoginDTO userLoginDTO);
 
     Object getUserByToken(String token);
-    // String getToken(String email);
-
-    String forgotPassword(String email, String password);
-
-    Object getUserByEmailId(String emailId);
 
     UserRegistration updateUser(String email, UserDTO userDTO);
 

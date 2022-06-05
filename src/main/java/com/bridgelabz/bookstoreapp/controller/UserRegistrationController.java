@@ -50,13 +50,6 @@ public class UserRegistrationController {
         return new ResponseEntity(dto, HttpStatus.OK);
     }
 
-    //    Ability to ResetPassword
-    @PostMapping("/forgotPassword")
-    public ResponseEntity<String> forgotPassword(@RequestParam String email, @RequestParam String password) {
-        String resp = userRegistrationService.forgotPassword(email, password);
-        return new ResponseEntity(resp, HttpStatus.OK);
-    }
-
     //    Ability to Update by id
     @PutMapping("/update/{id}")
     public ResponseEntity<String> updateRecordById(@PathVariable Integer id, @Valid @RequestBody UserDTO userDTO) {
@@ -64,4 +57,17 @@ public class UserRegistrationController {
         ResponseDTO dto = new ResponseDTO("User Record updated successfully", entity);
         return new ResponseEntity(dto, HttpStatus.ACCEPTED);
     }
+
+    @GetMapping("/verify/{token}")
+    ResponseEntity<ResponseDTO> verifyUser(@Valid @PathVariable String token) {
+        String userVerification = userRegistrationService.verifyUser(token);
+        if (userVerification != null) {
+            ResponseDTO responseDTO = new ResponseDTO("User verified :", userVerification);
+            return new ResponseEntity<>(responseDTO, HttpStatus.OK);
+        } else {
+            ResponseDTO responseDTO = new ResponseDTO("User Not verified data:", userVerification);
+            return new ResponseEntity<>(responseDTO, HttpStatus.OK);
+        }
+    }
 }
+

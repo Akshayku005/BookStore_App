@@ -20,7 +20,6 @@ public @Data class Cart {
     private Integer quantity;
 
     public Cart(Integer quantity, Book book, UserRegistration user) {
-        super();
         this.quantity = quantity;
         this.book = book;
         this.user = user;
@@ -29,4 +28,10 @@ public @Data class Cart {
     public Cart() {
     }
 
+    public Cart(int id, Integer quantity, Book book, UserRegistration userRegistration) {
+        this.cartId=id;
+        this.quantity = quantity;
+        this.book = book;
+        this.user = userRegistration;
+    }
 }

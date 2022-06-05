@@ -5,16 +5,20 @@ import com.bridgelabz.bookstoreapp.dto.ResponseDTO;
 import com.bridgelabz.bookstoreapp.model.Book;
 import com.bridgelabz.bookstoreapp.model.Cart;
 
+import java.util.List;
+
 
 public interface ICartService {
-    Cart insertItems(CartDTO cartdto);
+   String  insertItems(CartDTO cartdto);
 
-    ResponseDTO getCartDetails();
+List<Cart> getCartDetails(String token);
 
-    Cart getCartDetailsById(Integer cartId);
+    Cart getCartDetailsById(String token);
 
-    Cart deleteCartItemById(Integer cartId);
+    void deleteCartItemById(String token);
 
-    Cart updateRecordById(Integer cartId, CartDTO cartDTO);
+    Cart updateRecordById(String token, CartDTO cartDTO);
 
 }
+
+

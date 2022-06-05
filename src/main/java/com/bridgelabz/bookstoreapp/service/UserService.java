@@ -35,8 +35,19 @@ public class UserService implements IUserService {
         String token = util.createToken(newUser.getUserId());
         mailService.sendEmail(newUser.getEmail(), "Test Email", "Registered SuccessFully, hii: "
                 + newUser.getFirstName() + "Please Click here to get data-> "
-                + "http://localhost:8083/user/getBy/" + token);
+                + "http://localhost:8083/user/verify/" + token);
         return token;
+    }
+
+    @Override
+    public String verifyUser(String token) {
+        int id = Math.toIntExact(util.decodeToken(token));
+        Optional<UserRegistration> user = userRepository.findById(id);
+
+        if (user.isPresent()) {
+            return user.toString();
+        } else
+            return null;
     }
 
     @Override
@@ -52,7 +63,7 @@ public class UserService implements IUserService {
         if (getUser.isPresent()) {
             mailService.sendEmail("akshaysportive@gmail.com", "Test Email", "Get your data with this token, hii: "
                     + getUser.get().getEmail() + "Please Click here to get data-> "
-                    + "http://localhost:8083/user/getBy/" + token);
+                    + "http://localhost:8083/user/getAll/" + token);
             return getUser;
 
         } else {
@@ -80,34 +91,13 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public String forgotPassword(String email, String password) {
-        Optional<UserRegistration> isUserPresent = userRepository.findByEmailid(email);
-
-        if (!isUserPresent.isPresent()) {
-            throw new BookStoreException("Book record does not found");
-        } else {
-            UserRegistration user = isUserPresent.get();
-            user.setPassword(password);
-            userRepository.save(user);
-            return "Password updated successfully";
-        }
-
-    }
-
-    @Override
-    public Object getUserByEmailId(String emailId) {
-
-        return userRepository.findByEmailid(emailId);
-    }
-
-    @Override
     public UserRegistration updateUser(String id, UserDTO userDTO) {
         Optional<UserRegistration> updateUser = userRepository.findByEmailid(id);
         if (updateUser.isPresent()) {
             UserRegistration newBook = new UserRegistration(updateUser.get().getUserId(), userDTO);
             userRepository.save(newBook);
             String token = util.createToken(newBook.getUserId());
-            mailService.sendEmail(newBook.getEmail(), "Welcome " + newBook.getFirstName(), "Click here \n http://localhost:8083/user/getBy/" + token);
+            mailService.sendEmail(newBook.getEmail(), "Welcome " + newBook.getFirstName(), "Click here \n http://localhost:8083/user/update/" + token);
             return newBook;
 
         }
