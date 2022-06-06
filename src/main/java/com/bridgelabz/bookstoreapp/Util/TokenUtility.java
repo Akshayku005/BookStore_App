@@ -15,20 +15,21 @@ public class TokenUtility {
     private static final String TOKEN_SECRET = "Akshay";
 
     public String createToken(Integer id) {
+        //to set algorithm
         try {
-        Algorithm algo = Algorithm.HMAC256(TOKEN_SECRET);
-        String token = JWT.create().withClaim("id_key", id).sign(algo);
-        return token;
-    }catch (JWTCreationException exception) {
-         exception.printStackTrace();
-      } catch (IllegalArgumentException e) {
+            Algorithm algo = Algorithm.HMAC256(TOKEN_SECRET);
+            String token = JWT.create().withClaim("id_key", id).sign(algo);
+            return token;
+        } catch (JWTCreationException exception) {
+            exception.printStackTrace();
+        } catch (IllegalArgumentException e) {
             e.printStackTrace();
         }
-     return null;
-   }
+        return null;
+    }
 
     public int decodeToken(String token) throws SignatureVerificationException {
-
+        //for verification algorithm
         Verification verification = null;
         try {
             verification = JWT.require(Algorithm.HMAC256(TOKEN_SECRET));
@@ -36,6 +37,7 @@ public class TokenUtility {
             e.printStackTrace();
         }
         JWTVerifier jwtVerifier = verification.build();
+        //to decode token
         DecodedJWT decodedJWT = jwtVerifier.verify(token);
         Claim idClaim = decodedJWT.getClaim("id_key");
         int id = idClaim.asInt();

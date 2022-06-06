@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class OrderController {
     @Autowired
     private IOrderService orderService;
 
-    //Ability to insert Order Details in DB
+    //Ability to insert Order Details
     @PostMapping("/insert")
     public ResponseEntity<ResponseDTO> insertOrder(@Valid @RequestBody OrderDTO orderdto) {
         String newOrder = orderService.insertOrder(orderdto);
@@ -25,6 +26,7 @@ public class OrderController {
         return new ResponseEntity(dto, HttpStatus.CREATED);
     }
 
+    //Ability getAll orders by using token
     @GetMapping("/getAllOrders/{token}")
     public ResponseEntity<ResponseDTO> getAllOrderRecords(@PathVariable String token) {
         List<Order> newOrder = orderService.getAllOrderRecords(token);
@@ -32,6 +34,7 @@ public class OrderController {
         return new ResponseEntity(dto, HttpStatus.OK);
     }
 
+    //Ability to get order by token
     @GetMapping("/getById/{token}")
     public ResponseEntity<ResponseDTO> getBookRecord(@PathVariable String token) {
         List<Order> newOrder = orderService.getOrderRecord(token);
@@ -39,6 +42,7 @@ public class OrderController {
         return new ResponseEntity(dto, HttpStatus.OK);
     }
 
+    //Ability to cancel order by token and userId
     @PutMapping("/cancelOrder/{token}/{userId}")
     public ResponseEntity<ResponseDTO> getCancelOrder(@PathVariable String token, @PathVariable int userId) {
         Order deletedOrder = orderService.cancelOrder(token, userId);

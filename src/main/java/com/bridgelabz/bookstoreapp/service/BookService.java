@@ -18,6 +18,7 @@ public class BookService implements IBookService {
     @Autowired
     TokenUtility util;
 
+    //Ability to insert BookDetails in DB
     @Override
     public String createBook(BookDTO bookDTO) {
         Book bookData = new Book(bookDTO);
@@ -26,6 +27,7 @@ public class BookService implements IBookService {
         return token;
     }
 
+    //Ability to getBookById using Token
     @Override
     public Book getBookDataById(String token) {
         int id = util.decodeToken(token);
@@ -37,6 +39,7 @@ public class BookService implements IBookService {
         }
     }
 
+    //Ability to getAllbookData using Token
     @Override
     public List<Book> getAllBookData(String token) {
         int id = util.decodeToken(token);
@@ -50,6 +53,7 @@ public class BookService implements IBookService {
         }
     }
 
+    //Ability to UpdateBookById using token and quantity
     @Override
     public Book updataBooksByQuantity(String token, int quantity) {
         int id = util.decodeToken(token);
@@ -64,6 +68,7 @@ public class BookService implements IBookService {
         }
     }
 
+    //Ability to UpdateBookBy using Token
     @Override
     public Book updateRecordById(String token, BookDTO bookDTO) {
         int id = util.decodeToken(token);
@@ -77,6 +82,7 @@ public class BookService implements IBookService {
         }
     }
 
+    //Ability to delete book by using Token
     @Override
     public String deleteRecordById(String token) {
         int id = util.decodeToken(token);
@@ -88,6 +94,8 @@ public class BookService implements IBookService {
         }
         return token;
     }
+
+    //Ability to searchBook by Name and get book details
     @Override
     public List<Book> getBookByName(String bookName) {
         List<Book> findBook = bookStoreRepository.findByBookName(bookName);
@@ -97,18 +105,21 @@ public class BookService implements IBookService {
         return findBook;
     }
 
+    //Ability to sort the  book in Ascending Order
     @Override
     public List<Book> sortedListOfBooksInAscendingOrder() {
         List<Book> getSortedList = bookStoreRepository.sortingInAsce();
         return getSortedList;
     }
 
+    //Ability to sort the  book in Descending Order
     @Override
     public List<Book> sortedListOfBooksInDescendingOrder() {
         List<Book> getSortedListInDesc = bookStoreRepository.sortingInDesc();
         return getSortedListInDesc;
     }
 
+    //Ability to SearchBy Author Name and get details of the Book
     @Override
     public List<Book> getBookByAuthorName(String authorName) {
         List<Book> findBook = bookStoreRepository.findByBookAuthorName(authorName);

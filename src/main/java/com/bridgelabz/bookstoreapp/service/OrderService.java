@@ -17,7 +17,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.realm.UserDatabaseRealm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -37,6 +36,7 @@ public class OrderService implements IOrderService {
     @Autowired
     TokenUtility util;
 
+    //Ability to insert Order Details
     @Override
     public String insertOrder(OrderDTO orderdto) {
         Optional<Book> book = bookRepo.findById(orderdto.getBookId());
@@ -51,9 +51,8 @@ public class OrderService implements IOrderService {
                 orderRepo.save(newOrder);
                 log.info("Order record inserted successfully");
                 String token = util.createToken(newOrder.getOrderID());
-                mailService.sendEmail(newOrder.getUser().getEmail(), "Test Email", "Order placed successfully, hii: "
-                        + newOrder.getUser().getEmail() + "Please Click here to get data-> "
-                        + "http://localhost:8083/order/getById" + token);
+                mailService.sendEmail(newOrder.getUser().getEmail(), "Test Email", "Order placed successfully, Hii: "
+                        + newOrder.getUser().getFirstName()+ "Thank you for placing your order :)");
                 log.info("Order record inserted successfully");
                 return token;
             } else {
@@ -63,6 +62,8 @@ public class OrderService implements IOrderService {
             throw new BookStoreException("Book or User doesn't exists");
         }
     }
+
+    //Ability getAll orders by using token
     @Override
     public List<Order> getOrderRecord(String token) {
         Integer id = util.decodeToken(token);
@@ -70,8 +71,8 @@ public class OrderService implements IOrderService {
         if (order.isPresent()) {
             List<Order> listOrder = orderRepo.findAll();
             log.info("Order record retrieved successfully for id " + id);
-            mailService.sendEmail("akshaysportive@gmail.com", "Test Email", "Get your data with this token, hii: "
-                   + order.get().getUser().getEmail()+ "Please Click here to get all data-> "
+            mailService.sendEmail("akshaysportive@gmail.com", "Test Email", "Get your data with this token, Hii: "
+                    + order.get().getUser().getFirstName() + "Please Click here to get all data-> "
                     + "http://localhost:8083/order/getById/" + token);
             return listOrder;
         } else {
@@ -79,6 +80,7 @@ public class OrderService implements IOrderService {
         }
     }
 
+    //Ability to get order by token
     @Override
     public List<Order> getAllOrderRecords(String token) {
         Integer id = util.decodeToken(token);
@@ -86,8 +88,8 @@ public class OrderService implements IOrderService {
         if (orderData.isPresent()) {
             List<Order> listOrderData = orderRepo.findAll();
             log.info("ALL order records retrieved successfully");
-            mailService.sendEmail("akshaysportive@gmail.com", "Test Email", "Get your data with this token, hii: "
-                    + orderData.get().getUser().getEmail() + "Please Click here to get all data-> "
+            mailService.sendEmail("akshaysportive@gmail.com", "Test Email", "Get your data with this token, Hii: "
+                    + orderData.get().getUser().getFirstName() + "Please Click here to get all data-> "
                     + "http://localhost:8083/order/getAllOrders/" + token);
             return listOrderData;
         } else {
@@ -97,17 +99,16 @@ public class OrderService implements IOrderService {
 
     }
 
+    //Ability to cancel order by token and userId
     @Override
     public Order cancelOrder(String token, int userId) {
-        Integer id=util.decodeToken(token);
+        Integer id = util.decodeToken(token);
         Optional<Order> order = orderRepo.findById(id);
         Optional<UserRegistration> user = userRepo.findById(userId);
         if (order.isPresent() && user.isPresent()) {
             order.get().setCancel(true);
             orderRepo.save(order.get());
-            mailService.sendEmail(order.get().getUser().getEmail(), "Test Email", "canceled order SuccessFully, hii: "
-                    +order.get().getOrderID()+"Please Click here to get data of updated id-> "
-                    +"http://localhost:8083/order/cancelOrder/"+token);
+            mailService.sendEmail(order.get().getUser().getEmail(), "Test Email", "Hii "+ order.get().getUser().getFirstName()+ "Order Canceled  SuccessFully!! ");
             return order.get();
         } else {
             throw new BookStoreException("Order Record doesn't exists");

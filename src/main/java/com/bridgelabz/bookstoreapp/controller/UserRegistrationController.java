@@ -34,7 +34,7 @@ public class UserRegistrationController {
         return new ResponseEntity<ResponseDTO>(userRegistrationService.loginUser(userLoginDTO), HttpStatus.OK);
     }
 
-    //    Ability to getAll Login
+    //    Ability to getAll user
     @GetMapping(value = "/getAll")
     public ResponseEntity<String> getAllUser() {
         List<UserRegistration> listOfUsers = userRegistrationService.getAllUsers();
@@ -42,7 +42,7 @@ public class UserRegistrationController {
         return new ResponseEntity(dto, HttpStatus.OK);
     }
 
-    //    Ability to getAll by token
+    //    Ability to getAll users by token
     @GetMapping(value = "/getAll/{token}")
     public ResponseEntity<ResponseDTO> getAllUserDataByToken(@PathVariable String token) {
         List<UserRegistration> listOfUser = userRegistrationService.getAllUserDataByToken(token);
@@ -58,6 +58,7 @@ public class UserRegistrationController {
         return new ResponseEntity(dto, HttpStatus.ACCEPTED);
     }
 
+    //Ability to verify user by token
     @GetMapping("/verify/{token}")
     ResponseEntity<ResponseDTO> verifyUser(@Valid @PathVariable String token) {
         String userVerification = userRegistrationService.verifyUser(token);
@@ -66,7 +67,7 @@ public class UserRegistrationController {
             return new ResponseEntity<>(responseDTO, HttpStatus.OK);
         } else {
             ResponseDTO responseDTO = new ResponseDTO("User Not verified data:", userVerification);
-            return new ResponseEntity<>(responseDTO, HttpStatus.OK);
+            return new ResponseEntity(responseDTO, HttpStatus.OK);
         }
     }
 }

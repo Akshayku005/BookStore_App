@@ -33,6 +33,7 @@ public class CartService implements ICartService {
     @Autowired
     TokenUtility util;
 
+    //Ability to adding books with user name to the cart
     @Override
     public String insertItems(CartDTO cartdto) {
         Optional<Book> book = bookRepository.findById(cartdto.getBookId());
@@ -47,7 +48,7 @@ public class CartService implements ICartService {
         }
     }
 
-
+    //Ability to getAll CartDetails by token
     @Override
     public List<Cart> getCartDetails(String token) {
         int id = util.decodeToken(token);
@@ -62,6 +63,7 @@ public class CartService implements ICartService {
         }
     }
 
+    //Ability to get cart details by token
     @Override
     public Cart getCartDetailsById(String token) {
         int id = util.decodeToken(token);
@@ -73,6 +75,7 @@ public class CartService implements ICartService {
         }
     }
 
+    //Ability to delete cart using token
     @Override
     public void deleteCartItemById(String token) {
         int id = util.decodeToken(token);
@@ -84,6 +87,7 @@ public class CartService implements ICartService {
         }
     }
 
+    //Ability to update cart by using token
     @Override
     public Cart updateRecordById(String token, CartDTO cartDTO) {
         int id = util.decodeToken(token);

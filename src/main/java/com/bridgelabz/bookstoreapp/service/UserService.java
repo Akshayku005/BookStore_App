@@ -28,6 +28,7 @@ public class UserService implements IUserService {
     @Autowired
     TokenUtility util;
 
+    //  Ability to Create account
     @Override
     public String addUser(UserDTO userDTO) {
         UserRegistration newUser = new UserRegistration(userDTO);
@@ -39,9 +40,10 @@ public class UserService implements IUserService {
         return token;
     }
 
+    //Ability to verify user by token
     @Override
     public String verifyUser(String token) {
-        int id = Math.toIntExact(util.decodeToken(token));
+        int id = util.decodeToken(token);
         Optional<UserRegistration> user = userRepository.findById(id);
 
         if (user.isPresent()) {
@@ -50,12 +52,14 @@ public class UserService implements IUserService {
             return null;
     }
 
+    //    Ability to getAll users
     @Override
     public List<UserRegistration> getAllUsers() {
         List<UserRegistration> getUsers = userRepository.findAll();
         return getUsers;
     }
 
+    //    Ability to getUser by token
     @Override
     public Object getUserByToken(String token) {
         int id = util.decodeToken(token);
@@ -71,6 +75,7 @@ public class UserService implements IUserService {
         }
     }
 
+    //    Ability to login
     @Override
     public ResponseDTO loginUser(UserLoginDTO userLoginDTO) {
         ResponseDTO dto = new ResponseDTO();
@@ -90,6 +95,7 @@ public class UserService implements IUserService {
         return new ResponseDTO("User not found!", "Wrong email");
     }
 
+    //    Ability to Update by id
     @Override
     public UserRegistration updateUser(String id, UserDTO userDTO) {
         Optional<UserRegistration> updateUser = userRepository.findByEmailid(id);
